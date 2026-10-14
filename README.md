@@ -3,7 +3,7 @@
 Demo landing page for **7 Wonders Studio**, a unisex salon on Hill Road, Bandra West, Mumbai.
 Minimal, editorial, luxury direction — built to pitch the full website to the client.
 
-**Live demo:** https://7-wonders-studio.vercel.app
+**Live demo:** https://7wondersstudio.vercel.app
 
 ## What's here
 ```
