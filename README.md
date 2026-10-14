@@ -43,7 +43,7 @@ Photos show in black and white and turn to colour on hover. If an image fails to
 - Responsive down to 360px, respects reduced motion.
 
 ## Credits
-Concept, design and build by [Aspersh Upadhyay](https://github.com/aspershupadhyay) & Harsh Yadav.
+Concept, design and build by [Aspersh Upadhyay](https://github.com/aspershupadhyay) & [Harsh Yadav](https://github.com/itsharshhy).
 
 ## Next
 See `docs/PRD.md` — Phase 2 moves this to Next.js/Astro with a CMS, gallery, prices and online booking.
