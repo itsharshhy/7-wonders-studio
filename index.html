@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en" data-mode="warm">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>7 Wonders Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="7 Wonders Studio — a unisex hair, skin and grooming studio on Hill Road, Bandra West, Mumbai.">
+<script>
+  /* Pick the mode before first paint: saved choice → system dark → warm */
+  (function(){var m;try{m=localStorage.getItem('7w-mode')}catch(e){}
+    if(!m){m=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'warm'}
+    document.documentElement.setAttribute('data-mode',m)})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* Layout: editorial split hero → full-bleed photo + giant "7 / WONDERS" wordmark → seven numbered wonders (I–VII) with photos → studio → visit & book
+   Modes: Warm (bone, default) · Light (gallery white) · Dark (ink) — switch in the header */
+:root{
+  --bg:#F5F3EF;--surface:#ECE7E0;--ink:#171514;--muted:#6F6862;--line:#DCD5CC;--accent:#9E776B;--on-ink:#F5F3EF;
+  --display:"Italiana","Didot","Bodoni 72",Georgia,serif;
+  --serif:"Cormorant Garamond","Garamond","Times New Roman",serif;
+  --sans:"Jost","Futura","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --gutter:max(16px,env(safe-area-inset-left,0px));
+  --gutter-r:max(16px,env(safe-area-inset-right,0px));
+  --max:1240px;
+}
+/* Fallbacks if the script never runs */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121110;--surface:#1C1A18;--ink:#EEE9E2;--muted:#A0978E;--line:#2F2B28;--accent:#C9A093;--on-ink:#121110;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121110;--surface:#1C1A18;--ink:#EEE9E2;--muted:#A0978E;--line:#2F2B28;--accent:#C9A093;--on-ink:#121110;color-scheme:dark}
+
+/* The three modes (html:root[...] outranks the fallbacks above) */
+html:root[data-mode="warm"]{--bg:#F5F3EF;--surface:#ECE7E0;--ink:#171514;--muted:#6F6862;--line:#DCD5CC;--accent:#9E776B;--on-ink:#F5F3EF;color-scheme:light}
+html:root[data-mode="light"]{--bg:#FFFFFF;--surface:#F3F3F2;--ink:#0E0E0E;--muted:#67676A;--line:#E4E4E2;--accent:#8C6A60;--on-ink:#FFFFFF;color-scheme:light}
+html:root[data-mode="dark"]{--bg:#121110;--surface:#1C1A18;--ink:#EEE9E2;--muted:#A0978E;--line:#2F2B28;--accent:#C9A093;--on-ink:#121110;color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;transition:background-color .5s ease,color .5s ease}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:1.5px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.label{font-family:var(--sans);font-size:.72rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase}
+.muted{color:var(--muted)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.05;margin:0;text-wrap:balance}
+em{font-style:italic;color:var(--accent)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;padding:.95em 1.9em;border-radius:999px;border:1px solid var(--ink);font-family:var(--sans);font-size:.74rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;cursor:pointer;background:transparent;color:var(--ink);transition:background .3s,color .3s,border-color .3s}
+.btn.solid{background:var(--ink);color:var(--on-ink)}
+.btn:hover{background:var(--ink);color:var(--on-ink)}
+.btn.solid:hover{background:var(--accent);border-color:var(--accent)}
+
+/* Photo frame: monochrome at rest, colour on hover; designed fallback if a photo can't load */
+.ph{position:relative;overflow:hidden;background:
+  radial-gradient(120% 90% at 30% 20%,color-mix(in srgb,var(--surface) 60%,var(--bg)) 0%,var(--surface) 55%,color-mix(in srgb,var(--surface) 82%,var(--ink)) 100%)}
+.ph::before{content:attr(data-label);position:absolute;left:16px;bottom:14px;z-index:0;font-family:var(--sans);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;filter:grayscale(1) contrast(1.05);transition:transform 1.4s cubic-bezier(.2,.7,.2,1),filter .8s ease}
+.ph:hover img,.wonder:hover .ph img,.gram a:hover .ph img{filter:grayscale(0) contrast(1);transform:scale(1.035)}
+
+/* Header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:background-color .5s}
+.nav{display:flex;align-items:center;gap:20px;height:76px}
+.mono{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
+.mono .seal{font-family:var(--display);font-size:1.5rem;width:42px;height:42px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;line-height:1}
+.mono .word{font-family:var(--display);font-size:1.25rem;letter-spacing:.14em;text-transform:uppercase}
+.links{display:flex;align-items:center;gap:clamp(18px,3vw,40px)}
+.links a:not(.btn){font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;font-weight:400;position:relative}
+.links a:not(.btn)::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1px;background:currentColor;transition:right .35s}
+.links a:not(.btn):hover::after{right:0}
+.menu-btn{display:none;background:none;border:0;color:var(--ink);font-family:var(--sans);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;padding:8px 0}
+
+/* Mode switcher */
+.modes{display:flex;align-items:center;gap:2px;border:1px solid var(--line);border-radius:999px;padding:3px}
+.modes button{display:flex;align-items:center;gap:7px;background:none;border:0;border-radius:999px;padding:6px 11px;cursor:pointer;color:var(--muted);font-family:var(--sans);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;transition:background .3s,color .3s}
+.modes button:hover{color:var(--ink)}
+.modes button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink)}
+.modes .sw{width:10px;height:10px;border-radius:50%;border:1px solid var(--muted);flex:none}
+.sw.warm{background:#EFE9E0}.sw.light{background:#FFFFFF}.sw.dark{background:#161412}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,6vw,88px);align-items:center;padding-block:clamp(48px,8vw,104px)}
+.hero>*{min-width:0}
+.eyebrow{display:flex;align-items:center;gap:14px;color:var(--accent)}
+.eyebrow::before{content:"";width:36px;height:1px;background:currentColor}
+.hero h1{font-size:clamp(3rem,7.2vw,6.3rem);margin:28px 0;letter-spacing:-.01em}
+.hero p.lede{max-width:44ch;color:var(--muted);font-size:1.05rem;margin:0 0 40px}
+.ctas{display:flex;flex-wrap:wrap;gap:14px}
+.facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
+.facts div{padding-right:clamp(16px,3vw,36px);margin-right:clamp(16px,3vw,36px);border-right:1px solid var(--line)}
+.facts div:last-child{border:0;margin:0;padding:0}
+.facts b{display:block;font-family:var(--serif);font-weight:400;font-size:1.65rem;line-height:1.1}
+.facts span{font-size:.78rem;color:var(--muted)}
+.hero-photo{position:relative}
+.hero-photo .ph{aspect-ratio:4/5;max-width:100%}
+.locator{position:absolute;left:-28px;bottom:36px;z-index:2;background:var(--bg);border:1px solid var(--line);padding:18px 22px;max-width:250px;transition:background-color .5s}
+.locator .label{color:var(--muted);font-size:.62rem}
+.locator p{margin:6px 0 0;font-family:var(--serif);font-size:1.15rem;line-height:1.3}
+@keyframes rise{from{opacity:.001;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hero .copy>*{animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+.hero .copy>*:nth-child(2){animation-delay:.08s}.hero .copy>*:nth-child(3){animation-delay:.16s}.hero .copy>*:nth-child(4){animation-delay:.24s}.hero .copy>*:nth-child(5){animation-delay:.32s}
+
+/* Wordmark band */
+.band .ph{aspect-ratio:16/7;max-width:100%}
+.wordmark{display:flex;align-items:center;justify-content:space-between;font-family:var(--display);font-size:clamp(3.6rem,15.5vw,13.5rem);line-height:.9;letter-spacing:.02em;padding-block:clamp(20px,3vw,36px) 6px;white-space:nowrap}
+.wordmark .slash{display:inline-block;width:1px;height:.95em;background:var(--ink);transform:skewX(-14deg) rotate(10deg);margin-inline:.12em}
+.band-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-block:14px 0;border-top:1px solid var(--line)}
+.band-meta .label{font-size:.64rem;color:var(--muted)}
+.band-meta a{text-decoration:none}
+
+section.block{padding-block:clamp(80px,11vw,150px)}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:clamp(40px,6vw,72px)}
+.sec-head>*{min-width:0}
+.sec-head h2{font-size:clamp(2.6rem,5.4vw,4.6rem);margin-top:22px}
+.sec-head p{color:var(--muted);max-width:46ch;margin:0;justify-self:end}
+
+/* The seven wonders */
+.wonders{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.wonder{display:grid;grid-template-columns:64px 112px minmax(0,1fr);gap:28px;align-items:center;padding-block:22px;border-bottom:1px solid var(--line);transition:padding .4s,background-color .4s}
+.wonder:hover{padding-inline:14px;background:var(--surface)}
+.wonder .num{font-family:var(--display);font-size:1.5rem;color:var(--accent)}
+.wonder .ph{aspect-ratio:4/5;width:112px}
+.wonder .ph::before{display:none}
+.w-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr) auto;gap:28px;align-items:baseline}
+.wonder h3{font-size:clamp(1.7rem,2.6vw,2.3rem)}
+.wonder p{margin:0;color:var(--muted);font-size:.95rem}
+.wonder .for{justify-self:end;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:.4em 1em;white-space:nowrap}
+
+/* Studio */
+.studio{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px);align-items:center}
+.studio>*{min-width:0}
+.studio .ph{aspect-ratio:4/5}
+.studio h2{font-size:clamp(2.4rem,4.6vw,4rem);margin:22px 0 26px}
+.studio p{color:var(--muted);max-width:48ch;margin:0 0 18px}
+.ritual{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px;padding-top:28px;border-top:1px solid var(--line)}
+.ritual h3{font-size:1.4rem;margin:8px 0 6px}
+.ritual p{font-size:.88rem;margin:0}
+.ritual .label{color:var(--accent);font-size:.62rem}
+
+/* Promise band with photo */
+.quote{position:relative;background:#141210;color:#F2EEE8;overflow:hidden}
+.quote .ph{position:absolute;inset:0;background:#141210}
+.quote .ph::before{display:none}
+.quote .ph img{opacity:.38}
+.quote .ph:hover img{filter:grayscale(1);transform:none}
+.quote .wrap{position:relative;z-index:2;padding-block:clamp(96px,12vw,170px);text-align:center}
+.quote blockquote{margin:0 auto;max-width:22ch;font-family:var(--serif);font-style:italic;font-size:clamp(2.1rem,4.8vw,3.9rem);line-height:1.15;text-wrap:balance}
+.quote .label{display:block;margin-top:30px;opacity:.7}
+
+/* Instagram */
+.gram{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gram a{display:block;text-decoration:none}
+.gram .ph{aspect-ratio:1}
+.gram-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-top:28px}
+.gram-foot .handle{font-family:var(--serif);font-size:1.6rem}
+
+/* Visit + book */
+.visit{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(32px,6vw,96px)}
+.visit>*{min-width:0}
+.visit h2{font-size:clamp(2.6rem,5vw,4.4rem);margin:22px 0 36px}
+.info{display:grid;gap:26px}
+.info .label{color:var(--muted);font-size:.64rem;display:block;margin-bottom:6px}
+.info p{margin:0;font-family:var(--serif);font-size:1.3rem;line-height:1.4}
+form.book{background:var(--surface);padding:clamp(24px,4vw,48px);display:grid;gap:22px;align-content:start;transition:background-color .5s}
+form.book h3{font-size:2rem}
+.field{display:grid;gap:8px}
+.field label{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select{font:inherit;font-size:1rem;color:var(--ink);background:transparent;border:0;border-bottom:1px solid var(--muted);padding:8px 0;border-radius:0;outline:none;width:100%}
+.field input:focus,.field select:focus{border-bottom-color:var(--accent)}
+.field select option{background:var(--bg);color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.form-note{font-size:.82rem;color:var(--muted);margin:0}
+#bookResult{font-family:var(--serif);font-size:1.15rem;margin:0}
+#bookResult a{color:var(--accent)}
+
+/* Footer */
+footer{border-top:1px solid var(--line);padding-block:48px 28px}
+.foot-mark{font-family:var(--display);font-size:clamp(2.6rem,9vw,7rem);line-height:1;letter-spacing:.04em;text-align:center;margin-bottom:36px}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot .label{font-size:.62rem;color:var(--muted)}
+.foot a{text-decoration:none}
+.credit{margin-top:28px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.78rem;color:var(--muted)}
+.credit a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.credit a:hover{border-color:var(--accent)}
+
+/* Responsive */
+@media (max-width:960px){
+  .hero,.studio,.visit,.sec-head{grid-template-columns:1fr}
+  .sec-head p{justify-self:start}
+  .wonder{grid-template-columns:36px 88px minmax(0,1fr);gap:18px;align-items:start}
+  .wonder .ph{width:88px}
+  .w-body{grid-template-columns:1fr;gap:8px}
+  .wonder .for{justify-self:start}
+  .gram{grid-template-columns:repeat(2,1fr)}
+  .locator{left:16px}
+}
+@media (max-width:860px){.modes .txt{display:none}.modes button{padding:7px}}
+@media (max-width:760px){
+  .menu-btn{display:block}
+  .links{position:absolute;top:76px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:22px;background:var(--bg);border-bottom:1px solid var(--line);padding:24px var(--gutter-r) 28px var(--gutter)}
+  .links:not(.open){display:none}
+  .mono .word{display:none}
+  .ritual,.row2{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr;gap:16px}
+  .facts div{border:0;margin:0;padding:0}
+  .band .ph{aspect-ratio:4/3}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap nav" aria-label="Main">
+    <a class="mono" href="#top" aria-label="7 Wonders Studio home"><span class="seal">7</span><span class="word">Wonders</span></a>
+    <div class="links" id="navLinks">
+      <a href="#wonders">Services</a>
+      <a href="#studio">Studio</a>
+      <a href="#gram">Journal</a>
+      <a href="#visit">Visit</a>
+      <a class="btn solid" href="#book">Book a visit</a>
+    </div>
+    <div class="modes" role="group" aria-label="Colour mode">
+      <button type="button" data-set="warm" aria-pressed="true" title="Warm"><span class="sw warm"></span><span class="txt">Warm</span></button>
+      <button type="button" data-set="light" aria-pressed="false" title="Light"><span class="sw light"></span><span class="txt">Light</span></button>
+      <button type="button" data-set="dark" aria-pressed="false" title="Dark"><span class="sw dark"></span><span class="txt">Dark</span></button>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="wrap hero">
+    <div class="copy">
+      <div class="label eyebrow">Hill Road · Bandra West</div>
+      <h1>Seven ways to feel <em>wonderful.</em></h1>
+      <p class="lede">A unisex hair, skin and grooming studio in the heart of Bandra. Precision cuts, considered colour and unhurried care, for him and for her.</p>
+      <div class="ctas">
+        <a class="btn solid" href="#book">Book an appointment</a>
+        <a class="btn" href="#wonders">View services</a>
+      </div>
+      <div class="facts">
+        <div><b>For him &amp; her</b><span>Unisex studio</span></div>
+        <div><b>Hair · Skin · Nails</b><span>Under one roof</span></div>
+        <div><b>Hill Road</b><span>Bandra West, Mumbai</span></div>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="ph" data-label="Studio portrait">
+        <img src="https://images.unsplash.com/photo-1599695556750-6bce0fa9b3f5?auto=format&fit=crop&w=1200&q=80" alt="Black-and-white portrait of a woman with styled hair" loading="eager" onerror="this.remove()">
+      </div>
+      <div class="locator">
+        <span class="label">Find us</span>
+        <p>Libra Tower, Hill Road<br>opp. St. Stanislaus School</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORDMARK BAND -->
+  <section class="wrap band" aria-label="7 Wonders Studio">
+    <div class="ph" data-label="The studio floor">
+      <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=2000&q=80" alt="Salon chairs facing round mirrors on a dark wall" loading="lazy" onerror="this.remove()">
+    </div>
+    <div class="wordmark" aria-hidden="true"><span>7</span><span class="slash"></span><span>WONDERS</span></div>
+    <div class="band-meta">
+      <span class="label">Bandra West, Mumbai</span>
+      <span class="label">Unisex salon &amp; studio</span>
+      <a class="label" href="https://www.instagram.com/7wondersstudioofficial/" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </section>
+
+  <!-- THE SEVEN WONDERS -->
+  <section class="block" id="wonders">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="label eyebrow">The menu</div>
+          <h2>The seven <em>wonders.</em></h2>
+        </div>
+        <p>Seven disciplines, one standard. Every service starts with a consultation, so what you leave with suits your hair, your skin and your week.</p>
+      </div>
+      <ol class="wonders">
+        <li class="wonder"><span class="num">I</span>
+          <div class="ph"><img src="https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?auto=format&fit=crop&w=300&q=75" alt="Stylist cutting a client's hair" loading="lazy" onerror="this.remove()"></div>
+          <div class="w-body"><h3>Cut &amp; Style</h3><p>Precision cuts, restyles, blow-dries and occasion styling, shaped to how you actually wear your hair.</p><span class="for">Him &amp; her</span></div></li>
+        <li class="wonder"><span class="num">II</span>
+          <div class="ph"><img src="https://images.unsplash.com/photo-1470259078422-826894b933aa?auto=format&fit=crop&w=300&q=75" alt="Woman with glossy coloured hair in motion" loading="lazy" onerror="this.remove()"></div>
+          <div class="w-body"><h3>Colour</h3><p>Global colour, highlights, balayage and grey coverage, with tone chosen for Indian skin and Mumbai light.</p><span class="for">Him &amp; her</span></div></li>
+        <li class="wonder"><span class="num">III</span>
+          <div class="ph"><img src="https://images.unsplash.com/photo-1637777269327-c4d5c7944d7b?auto=format&fit=crop&w=300&q=75" alt="Row of salon wash basins" loading="lazy" onerror="this.remove()"></div>
+          <div class="w-body"><h3>Hair Rituals</h3><p>Spa, keratin and smoothing treatments that repair humidity, heat and colour damage.</p><span class="for">Him &amp; her</span></div></li>
+        <li class="wonder"><span class="num">IV</span>
+          <div class="ph"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=75" alt="Facial treatment in progress" loading="lazy" onerror="this.remove()"></div>
+          <div class="w-body"><h3>Skin</h3><p>Facials, clean-ups and targeted treatments for glow, tan and texture.</p><span class="for">Him &amp; her</span></div></li>
+        <li class="wonder"><span class="num">V</span>
+          <div class="ph"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=75" alt="Manicured hand with patterned nails" loading="lazy" onerror="this.remove()"></div>
+          <div class="w-body"><h3>Hands &amp; Feet</h3><p>Manicures, pedicures and nail art, finished slowly and properly.</p><span class="for">Him &amp; her</span></div></li>
+        <li class="wonder"><span class="num">VI</span>
+          <div class="ph"><img src="https://images.unsplash.com/photo-1517832606299-7ae9b720a186?auto=format&fit=crop&w=300&q=75" alt="Barber trimming a beard with scissors" loading="lazy" onerror="this.remove()"></div>
+          <div class="w-body"><h3>Grooming</h3><p>Beard design, hot-towel shaves and sharp fades for the modern gentleman.</p><span class="for">For him</span></div></li>
+        <li class="wonder"><span class="num">VII</span>
+          <div class="ph"><img src="https://images.unsplash.com/photo-1610173827043-9db50e0d8ef9?auto=format&fit=crop&w=300&q=75" alt="Bride in red with gold jewellery and bridal make-up" loading="lazy" onerror="this.remove()"></div>
+          <div class="w-body"><h3>Occasion &amp; Bridal</h3><p>Hair and make-up for weddings, sangeets and every evening worth remembering.</p><span class="for">For her</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section class="block" id="studio" style="padding-top:0">
+    <div class="wrap studio">
+      <div class="ph" data-label="At the chair">
+        <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=1200&q=80" alt="Stylist blow-drying a client's hair with a round brush" loading="lazy" onerror="this.remove()">
+      </div>
+      <div>
+        <div class="label eyebrow">The studio</div>
+        <h2>A studio, <em>not</em> a production line.</h2>
+        <p>7 Wonders sits on the ground floor of Libra Tower on Hill Road. It is a calm room in a loud city, where your stylist takes the time to listen before picking up the scissors.</p>
+        <p>We work with professional products, keep our tools spotless and book with enough breathing room that nobody is ever rushed.</p>
+        <div class="ritual">
+          <div><span class="label">Step 1</span><h3>Consult</h3><p class="muted">We talk through your hair, skin and routine first.</p></div>
+          <div><span class="label">Step 2</span><h3>Craft</h3><p class="muted">The service, done with care and no shortcuts.</p></div>
+          <div><span class="label">Step 3</span><h3>Care</h3><p class="muted">Home-care advice so the result lasts.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMISE -->
+  <section class="quote" aria-label="Our promise">
+    <div class="ph"><img src="https://images.unsplash.com/photo-1574015974293-817f0ebebb74?auto=format&fit=crop&w=2000&q=70" alt="" loading="lazy" onerror="this.remove()"></div>
+    <div class="wrap">
+      <blockquote>Walk in as you are. Leave as your own kind of wonder.</blockquote>
+      <span class="label">The 7 Wonders promise</span>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section class="block" id="gram">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="label eyebrow">Journal</div>
+          <h2>Fresh from the <em>chair.</em></h2>
+        </div>
+        <p>Recent transformations, colour work and behind-the-scenes moments from the studio.</p>
+      </div>
+      <div class="gram">
+        <a href="https://www.instagram.com/7wondersstudioofficial/" target="_blank" rel="noopener" aria-label="View on Instagram: styling"><div class="ph" data-label="Styling"><img src="https://images.unsplash.com/photo-1629397685944-7073f5589754?auto=format&fit=crop&w=700&q=75" alt="Stylist curling a client's hair" loading="lazy" onerror="this.remove()"></div></a>
+        <a href="https://www.instagram.com/7wondersstudioofficial/" target="_blank" rel="noopener" aria-label="View on Instagram: grooming"><div class="ph" data-label="Grooming"><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=700&q=75" alt="Barber detailing a fade with a straight razor" loading="lazy" onerror="this.remove()"></div></a>
+        <a href="https://www.instagram.com/7wondersstudioofficial/" target="_blank" rel="noopener" aria-label="View on Instagram: bridal"><div class="ph" data-label="Bridal"><img src="https://images.unsplash.com/photo-1600685890506-593fdf55949b?auto=format&fit=crop&w=700&q=75" alt="Bride in traditional red with gold jewellery" loading="lazy" onerror="this.remove()"></div></a>
+        <a href="https://www.instagram.com/7wondersstudioofficial/" target="_blank" rel="noopener" aria-label="View on Instagram: studio"><div class="ph" data-label="Studio"><img src="https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?auto=format&fit=crop&w=700&q=75" alt="Salon chairs, round mirrors and a brick wall" loading="lazy" onerror="this.remove()"></div></a>
+      </div>
+      <div class="gram-foot">
+        <span class="handle">@7wondersstudioofficial</span>
+        <a class="btn" href="https://www.instagram.com/7wondersstudioofficial/" target="_blank" rel="noopener">Follow on Instagram ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT + BOOK -->
+  <section class="block" id="visit" style="padding-top:0">
+    <div class="wrap visit">
+      <div>
+        <div class="label eyebrow">Visit</div>
+        <h2>Come say <em>hello.</em></h2>
+        <div class="info">
+          <div><span class="label">Address</span><p>Shop No. 4, Ground Floor, Libra Tower,<br>Hill Road, Bandra West, Mumbai 400050</p></div>
+          <div><span class="label">Landmark</span><p>Opposite St. Stanislaus High School</p></div>
+          <!-- TODO: confirm hours and phone with the studio -->
+          <div><span class="label">Hours</span><p>Open daily · 10:00 am – 9:00 pm</p></div>
+          <div><span class="label">Call or WhatsApp</span><p>+91 XXXXX XXXXX</p></div>
+          <div><a class="btn" href="https://maps.google.com/?q=7+Wonders+Studio+Libra+Tower+Hill+Road+Bandra+West" target="_blank" rel="noopener">Get directions ↗</a></div>
+        </div>
+      </div>
+
+      <form class="book" id="book" novalidate>
+        <h3>Book your <em>visit</em></h3>
+        <p class="form-note">Send us your details and we'll confirm your slot on WhatsApp.</p>
+        <div class="row2">
+          <div class="field"><label for="bkName">Name</label><input id="bkName" name="name" autocomplete="name" required placeholder="Your name"></div>
+          <div class="field"><label for="bkPhone">Phone</label><input id="bkPhone" name="phone" type="tel" autocomplete="tel" required placeholder="+91"></div>
+        </div>
+        <div class="field"><label for="bkService">Service</label>
+          <select id="bkService" name="service">
+            <option>Cut &amp; Style</option><option>Colour</option><option>Hair Rituals</option><option>Skin</option><option>Hands &amp; Feet</option><option>Grooming</option><option>Occasion &amp; Bridal</option><option>Not sure yet, need a consultation</option>
+          </select>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="bkDate">Preferred date</label><input id="bkDate" name="date" type="date"></div>
+          <div class="field"><label for="bkTime">Preferred time</label>
+            <select id="bkTime" name="time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select>
+          </div>
+        </div>
+        <button class="btn solid" type="submit">Request appointment</button>
+        <p id="bookResult" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-mark" aria-hidden="true">7 Wonders Studio</div>
+    <div class="foot">
+      <span class="label">Bandra West, Mumbai</span>
+      <span class="label">© <span id="yr">2026</span> 7 Wonders Studio</span>
+      <a class="label" href="https://www.instagram.com/7wondersstudioofficial/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <div class="credit">
+      <span>Website concept designed &amp; built by <a href="https://github.com/aspershupadhyay" target="_blank" rel="noopener">Aspersh Upadhyay</a> &amp; Harsh Yadav</span>
+      <span>Demo photography via Unsplash</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // TODO: replace with the studio's WhatsApp number (country code + number, digits only)
+  const WHATSAPP_NUMBER = "910000000000";
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Colour modes: Warm · Light · Dark
+  const root = document.documentElement;
+  const modeBtns = document.querySelectorAll('.modes button');
+  function setMode(m, save){
+    root.setAttribute('data-mode', m);
+    modeBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.set === m)));
+    if (save) { try { localStorage.setItem('7w-mode', m); } catch(e){} }
+  }
+  setMode(root.getAttribute('data-mode') || 'warm', false);
+  modeBtns.forEach(b => b.addEventListener('click', () => setMode(b.dataset.set, true)));
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const links = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+    menuBtn.textContent = open ? 'Close' : 'Menu';
+  });
+  links.addEventListener('click', e => {
+    if (e.target.tagName === 'A' && links.classList.contains('open')) menuBtn.click();
+  });
+
+  // Booking → pre-filled WhatsApp message
+  const form = document.getElementById('book');
+  const result = document.getElementById('bookResult');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(form));
+    if (!d.name.trim() || !d.phone.trim()) {
+      result.textContent = 'Please add your name and phone number so we can confirm your slot.';
+      return;
+    }
+    const msg = `Hi 7 Wonders Studio, I'd like to book ${d.service}` +
+      (d.date ? ` on ${d.date}` : '') + ` (${d.time.toLowerCase()}). Name: ${d.name}, phone: ${d.phone}.`;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    result.innerHTML = '';
+    const a = document.createElement('a');
+    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = 'Open WhatsApp to send your request →';
+    result.append('Thank you, ' + d.name.trim().split(' ')[0] + '. ', a);
+  });
+</script>
+</body>
+</html>
