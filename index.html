@@ -12,6 +12,12 @@
     if(!m){m=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'warm'}
     document.documentElement.setAttribute('data-mode',m)})();
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HairSalon","name":"7 Wonders Studio","description":"Unisex hair, skin and grooming salon on Hill Road, Bandra West.","telephone":"+91-9833679949",
+ "address":{"@type":"PostalAddress","streetAddress":"Shop No. 4, Ground Floor, Libra Tower, Hill Road","addressLocality":"Bandra West, Mumbai","addressRegion":"Maharashtra","postalCode":"400050","addressCountry":"IN"},
+ "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"10:00","closes":"21:30"}],
+ "paymentAccepted":"Cash, Credit Card, Debit Card, UPI","sameAs":["https://www.instagram.com/7wondersstudioofficial/"]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500&display=swap">
@@ -150,6 +156,12 @@ section.block{padding-block:clamp(80px,11vw,150px)}
 .quote blockquote{margin:0 auto;max-width:22ch;font-family:var(--serif);font-style:italic;font-size:clamp(2.1rem,4.8vw,3.9rem);line-height:1.15;text-wrap:balance}
 .quote .label{display:block;margin-top:30px;opacity:.7}
 
+/* Reviews */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,40px);border-top:1px solid var(--ink);padding-top:clamp(28px,4vw,44px)}
+.reviews figure{margin:0;display:grid;gap:22px;align-content:space-between}
+.reviews blockquote{margin:0;font-family:var(--serif);font-size:clamp(1.3rem,1.9vw,1.6rem);line-height:1.35}
+.reviews figcaption{color:var(--muted);font-size:.64rem}
+
 /* Instagram */
 .gram{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .gram a{display:block;text-decoration:none}
@@ -164,6 +176,7 @@ section.block{padding-block:clamp(80px,11vw,150px)}
 .info{display:grid;gap:26px}
 .info .label{color:var(--muted);font-size:.64rem;display:block;margin-bottom:6px}
 .info p{margin:0;font-family:var(--serif);font-size:1.3rem;line-height:1.4}
+.info p a{text-decoration:none;border-bottom:1px solid var(--line)}
 form.book{background:var(--surface);padding:clamp(24px,4vw,48px);display:grid;gap:22px;align-content:start;transition:background-color .5s}
 form.book h3{font-size:2rem}
 .field{display:grid;gap:8px}
@@ -195,6 +208,7 @@ footer{border-top:1px solid var(--line);padding-block:48px 28px}
   .w-body{grid-template-columns:1fr;gap:8px}
   .wonder .for{justify-self:start}
   .gram{grid-template-columns:repeat(2,1fr)}
+  .reviews{grid-template-columns:1fr}
   .locator{left:16px}
 }
 @media (max-width:860px){.modes .txt{display:none}.modes button{padding:7px}}
@@ -246,7 +260,7 @@ footer{border-top:1px solid var(--line);padding-block:48px 28px}
       <div class="facts">
         <div><b>For him &amp; her</b><span>Unisex studio</span></div>
         <div><b>Hair · Skin · Nails</b><span>Under one roof</span></div>
-        <div><b>Hill Road</b><span>Bandra West, Mumbai</span></div>
+        <div><b>4.9 ★ rated</b><span>Hundreds of reviews on Justdial</span></div>
       </div>
     </div>
     <div class="hero-photo">
@@ -289,13 +303,13 @@ footer{border-top:1px solid var(--line);padding-block:48px 28px}
           <div class="w-body"><h3>Cut &amp; Style</h3><p>Precision cuts, restyles, blow-dries and occasion styling, shaped to how you actually wear your hair.</p><span class="for">Him &amp; her</span></div></li>
         <li class="wonder"><span class="num">II</span>
           <div class="ph"><img src="https://images.unsplash.com/photo-1470259078422-826894b933aa?auto=format&fit=crop&w=300&q=75" alt="Woman with glossy coloured hair in motion" loading="lazy" onerror="this.remove()"></div>
-          <div class="w-body"><h3>Colour</h3><p>Global colour, highlights, balayage and grey coverage, with tone chosen for Indian skin and Mumbai light.</p><span class="for">Him &amp; her</span></div></li>
+          <div class="w-body"><h3>Colour</h3><p>Global colour, highlights, balayage and grey coverage, with ammonia-free options and tone chosen for Indian skin and Mumbai light.</p><span class="for">Him &amp; her</span></div></li>
         <li class="wonder"><span class="num">III</span>
           <div class="ph"><img src="https://images.unsplash.com/photo-1637777269327-c4d5c7944d7b?auto=format&fit=crop&w=300&q=75" alt="Row of salon wash basins" loading="lazy" onerror="this.remove()"></div>
-          <div class="w-body"><h3>Hair Rituals</h3><p>Spa, keratin and smoothing treatments that repair humidity, heat and colour damage.</p><span class="for">Him &amp; her</span></div></li>
+          <div class="w-body"><h3>Hair Rituals</h3><p>Hair spa, keratin, hair botox and nanoplastia that repair humidity, heat and colour damage.</p><span class="for">Him &amp; her</span></div></li>
         <li class="wonder"><span class="num">IV</span>
           <div class="ph"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=300&q=75" alt="Facial treatment in progress" loading="lazy" onerror="this.remove()"></div>
-          <div class="w-body"><h3>Skin</h3><p>Facials, clean-ups and targeted treatments for glow, tan and texture.</p><span class="for">Him &amp; her</span></div></li>
+          <div class="w-body"><h3>Skin</h3><p>Facials, clean-ups, waxing and targeted treatments for glow, tan and texture.</p><span class="for">Him &amp; her</span></div></li>
         <li class="wonder"><span class="num">V</span>
           <div class="ph"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=300&q=75" alt="Manicured hand with patterned nails" loading="lazy" onerror="this.remove()"></div>
           <div class="w-body"><h3>Hands &amp; Feet</h3><p>Manicures, pedicures and nail art, finished slowly and properly.</p><span class="for">Him &amp; her</span></div></li>
@@ -338,6 +352,24 @@ footer{border-top:1px solid var(--line);padding-block:48px 28px}
     </div>
   </section>
 
+  <!-- REVIEWS -->
+  <section class="block" id="reviews">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="label eyebrow">Kind words</div>
+          <h2>Rated <em>4.9</em> by Bandra.</h2>
+        </div>
+        <p>Hundreds of clients have reviewed the studio on Justdial and Google. A few of them, in their own words.</p>
+      </div>
+      <div class="reviews">
+        <figure><blockquote>“They take time and effort to do the hair spa, cut and more. It is not a rushed job. It is hard to find reliable salons. This will be one that I will revisit.”</blockquote><figcaption class="label">Soumya S. · Hair spa &amp; cut</figcaption></figure>
+        <figure><blockquote>“I would highly recommend 7 Wonders for highlights, hair botox, facials, hair cuts and clean-ups. I'm a regular here.”</blockquote><figcaption class="label">Jeet D. · Regular client</figcaption></figure>
+        <figure><blockquote>“Me and my wife are very happy with the results. I would recommend everyone to come and try their 5 star service.”</blockquote><figcaption class="label">Sonu D. · Hair botox</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
   <!-- INSTAGRAM -->
   <section class="block" id="gram">
     <div class="wrap">
@@ -370,9 +402,9 @@ footer{border-top:1px solid var(--line);padding-block:48px 28px}
         <div class="info">
           <div><span class="label">Address</span><p>Shop No. 4, Ground Floor, Libra Tower,<br>Hill Road, Bandra West, Mumbai 400050</p></div>
           <div><span class="label">Landmark</span><p>Opposite St. Stanislaus High School</p></div>
-          <!-- TODO: confirm hours and phone with the studio -->
-          <div><span class="label">Hours</span><p>Open daily · 10:00 am – 9:00 pm</p></div>
-          <div><span class="label">Call or WhatsApp</span><p>+91 XXXXX XXXXX</p></div>
+          <div><span class="label">Hours</span><p>Open daily · 10:00 am – 9:30 pm</p></div>
+          <div><span class="label">Call or WhatsApp</span><p><a href="tel:+919833679949">+91 98336 79949</a></p></div>
+          <div><span class="label">We accept</span><p>Cards · UPI · Cash</p></div>
           <div><a class="btn" href="https://maps.google.com/?q=7+Wonders+Studio+Libra+Tower+Hill+Road+Bandra+West" target="_blank" rel="noopener">Get directions ↗</a></div>
         </div>
       </div>
@@ -418,8 +450,8 @@ footer{border-top:1px solid var(--line);padding-block:48px 28px}
 </footer>
 
 <script>
-  // TODO: replace with the studio's WhatsApp number (country code + number, digits only)
-  const WHATSAPP_NUMBER = "910000000000";
+  // Studio's WhatsApp number (country code + number, digits only)
+  const WHATSAPP_NUMBER = "919833679949";
 
   document.getElementById('yr').textContent = new Date().getFullYear();
 

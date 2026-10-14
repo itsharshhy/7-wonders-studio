@@ -24,11 +24,12 @@ npx serve .
 - **Vercel:** `npx vercel` in this folder, or import the GitHub repo at vercel.com/new.
 - **GitHub Pages:** Repo → Settings → Pages → Deploy from branch `main`, folder `/`.
 
-## Placeholders to replace before showing the client
+## Studio details used
+Phone/WhatsApp **+91 98336 79949**, hours **10:00 am – 9:30 pm daily**, payments **Cards · UPI · Cash**, services and reviews — taken from the studio's public listings (studio website, Justdial, directory pages), October 2026. Confirm with the studio before launch, including that the number takes WhatsApp.
+
+## Still placeholder
 | Where | What |
 |---|---|
-| `index.html` → `WHATSAPP_NUMBER` | Studio's WhatsApp number (digits only, with 91) |
-| `index.html` → Visit section | Phone number and opening hours (marked `TODO`) |
 | All `<img>` tags | Free-licence Unsplash demo photos → swap for real studio / Instagram photos |
 
 Photos show in black and white and turn to colour on hover. If an image fails to load, the frame shows a designed fallback, so the page never looks broken.
